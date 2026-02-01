@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Roadmaps</title>
+  <link rel="stylesheet" href="style1.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+
+
+    body {
+      margin-top: 10px;
+      font-family: "Poppins", sans-serif;
+      /* background: linear-gradient(135deg, #2563eb, #10b981); */
+         background-image: linear-gradient(rgba(208, 204, 204, 0.7), rgba(151, 155, 170, 0.7)), url(bg4.jpg);
+         backdrop-filter: blur;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      height: 100vh;
+    }
+
+ 
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">Career<span style="color:var(--accent)">Path</span></div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="roadmap.html">Roadmaps</a></li>
+          <li><a href="course.html">Courses</a></li>
+          <li><a href="collage.html">colleges</a></li>
+          <li><a href="contect.html">Contact</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <!-- <a class="btn" href="#contact">Get Help</a> -->
+      <a class="btn" href="javascript:void(0)" id="loginBtn" onclick="openModal()">Login</a>
+      <a class="btn" href="javascript:void(0)" id="logoutBtn" onclick="logout()"
+        style="display:none;background:#ef4444;">Logout</a>
+    </div>
+  </header>
+
+  <!-- 🔹 Sidebar -->
+  <div class="sidebar">
+    <h2>Roadmap List</h2>
+    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search roadmap...">
+    <div id="roadmapList"></div>
+  </div>
+
+  <!-- 🔹 Content -->
+  <div class="content" id="content">
+    <h2>Select a Roadmap!!</h2>
+    <!-- <p>Click on a roadmap from the left to see complete detailed steps.</p> -->
+    <button id="downloadBtn" style="display:none;">Download PDF📩</button>
+  </div>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    const roadmaps = {
+      engineering: "Engineering (JEE/B.Tech)",
+      medical: "Medical (NEET/MBBS/BDS)",
+      nursing: "Nursing (ANM/GNM/B.Sc)",
+      computerScience: "Computer Science (AI/Data Science/Programming)",
+      business: "Business (MBA/BBA/Commerce)",
+       engineering: "Engineering (JEE/B.Tech)",
+            medical: "Medical (NEET/MBBS/BDS)",
+            nursing: "Nursing (ANM/GNM/B.Sc)",
+            engineering: "Engineering (Mechanical/Electrical/Civil)",
+            computerScience: "Computer Science (AI/Data Science/Programming)",
+            business: "Business (MBA/BBA/Commerce)",
+            medicine: "Medicine (MBBS/BDS/BAMS)",
+            law: "Law (LLB/LLM/Corporate)",
+            architecture: "Architecture (B.Arch/M.Arch/Interior)",
+            education: "Education (B.Ed/M.Ed/Teaching)",
+            psychology: "Psychology (Clinical/Child/Industrial)",
+            economics: "Economics (Micro/Macro/Developmental)",
+            physics: "Physics (Applied/Theoretical/Quantum)",
+            chemistry: "Chemistry (Organic/Inorganic/Physical)",
+            mathematics: "Mathematics (Pure/Applied/Statistics)",
+            biology: "Biology (Botany/Zoology/Microbiology)",
+            pharmacy: "Pharmacy (B.Pharm/M.Pharm/Pharmaceutic,al)",
+            politicalScience: "Political Science (International Relations/Public Admin)",
+            history: "History (Ancient/Modern/World)",
+            sociology: "Sociology (Urban/Rural/Criminology)",
+            fineArts: "Fine Arts (Painting/Sculpture/Digital)",
+            journalism: "Journalism (Print/Digital/Broadcast)",
+            agriculture: "Agriculture (Agronomy/Horticulture/Dairy)",
+            environmentalScience: "Environmental Science (Ecology/Sustainability/Climate)",
+            anthropology: "Anthropology (Cultural/Linguistic/Forensic)",
+            management: "Management (HR/Finance/Marketing)",
+            dentistry: "Dentistry (BDS/MDS/Oral Surgery)",
+            veterinaryScience: "Veterinary Science (B.VSc/M.VSc/Animal Nutrition)",
+            fashionDesign: "Fashion Design (Textile/Apparel/Accessory)",
+            hotelManagement: "Hotel Management (Hospitality/Culinary/Tourism)",
+            biotechnology: "Biotechnology (Genetics/Molecular/Bioinformatics)",
+            geography: "Geography (Physical/Human/Cartography)",
+            linguistics: "Linguistics (Applied/Computational/General)",
+            philosophy: "Philosophy (Ethics/Logic/Metaphysics)",
+            socialWork: "Social Work (Community/Clinical/Rural)",
+            theology: "Theology (Divinity/Religious Studies)",
+            statistics: "Statistics (Data Analysis/Actuarial/Bio-Statistics)",
+            performingArts: "Performing Arts (Dance/Music/Theatre)",
+            publicHealth: "Public Health (Epidemiology/Health Policy)",
+            nutrition: "Nutrition (Dietetics/Food Science/Clinical)",
+            physicalEducation: "Physical Education (Sports/Health Science/Training)",
+            libraryScience: "Library Science (Archival/Information)"
+    };
+
+    const data = {
+       engineering: `
+      <h2>Engineering (JEE/B.Tech) Roadmap</h2>
+      <div class="step"><strong>Step 1:</strong> Choose PCM in 11th with strong focus on Physics, Chemistry, and Mathematics.</div>
+      <div class="step"><strong>Step 2:</strong> Strengthen core concepts by studying NCERT thoroughly.</div>
+      <div class="step"><strong>Step 3:</strong> Solve conceptual and advanced problems for better understanding.</div>
+      <div class="step"><strong>Step 4:</strong> Participate in Olympiads and competitions.</div>
+      <div class="step"><strong>Step 5:</strong> Begin JEE preparation along with board syllabus.</div>
+      <div class="step"><strong>Step 6:</strong> Take regular mock tests to improve speed and accuracy.</div>
+      <div class="step"><strong>Step 7:</strong> Analyze mistakes and revise weak topics.</div>
+      <div class="step"><strong>Step 8:</strong> Learn time management strategies for exams.</div>
+      <div class="step"><strong>Step 9:</strong> Join online forums or coaching if guidance is required.</div>
+      <div class="step"><strong>Step 10:</strong> Take care of health and maintain study-life balance.</div>
+      <div class="step"><strong>Step 11:</strong> Appear for JEE Main/Advanced and state CET if needed.</div>
+      <div class="step"><strong>Step 12:</strong> Apply for college counseling and select best-fit engineering branch.</div>
+      <div class="step"><strong>Step 13:</strong> Attend workshops, internships, and coding labs in college.</div>
+      <div class="step"><strong>Step 14:</strong> Work on real-life projects and research to enhance knowledge.</div>
+      <div class="step"><strong>Step 15:</strong> Explore higher studies (M.Tech, MS) or competitive exams after graduation.</div>
+    `,
+            medical: `
+      <h2>Medical (NEET/MBBS/BDS) Roadmap</h2>
+      <div class="step"><strong>Step 1:</strong> Choose PCB in 11th and focus on Biology fundamentals.</div>
+      <div class="step"><strong>Step 2:</strong> Practice diagrams and practicals regularly.</div>
+      <div class="step"><strong>Step 3:</strong> Study NCERT thoroughly for NEET base.</div>
+      <div class="step"><strong>Step 4:</strong> Take weekly tests to track progress.</div>
+      <div class="step"><strong>Step 5:</strong> Join coaching or online courses for structured prep.</div>
+      <div class="step"><strong>Step 6:</strong> Revise board syllabus with NEET prep in 12th.</div>
+      <div class="step"><strong>Step 7:</strong> Solve previous years’ NEET papers and sample tests.</div>
+      <div class="step"><strong>Step 8:</strong> Maintain health and nutrition during study.</div>
+      <div class="step"><strong>Step 9:</strong> Appear for NEET and counseling for colleges.</div>
+      <div class="step"><strong>Step 10:</strong> Choose MBBS, BDS, BPT, or Nursing based on rank.</div>
+      <div class="step"><strong>Step 11:</strong> Attend practical training, internships, and research in college.</div>
+      <div class="step"><strong>Step 12:</strong> Prepare for specialization or PG exams after degree.</div>
+      <div class="step"><strong>Step 13:</strong> Consider government or private healthcare jobs.</div>
+      <div class="step"><strong>Step 14:</strong> Stay updated with medical innovations and technology.</div>
+      <div class="step"><strong>Step 15:</strong> Build a network with peers and mentors for career growth.</div>
+    `,
+            nursing: `
+      <h2>Nursing (ANM/GNM/B.Sc) Roadmap</h2>
+      <div class="step"><strong>Step 1:</strong> Complete 10th and choose PCB for higher study.</div>
+      <div class="step"><strong>Step 2:</strong> Join ANM / Auxiliary course (1–2 years) for quick entry.</div>
+      <div class="step"><strong>Step 3:</strong> Complete GNM (3 years) or B.Sc Nursing (4 years) based on eligibility.</div>
+      <div class="step"><strong>Step 4:</strong> Undertake hospital practicals and internship.</div>
+      <div class="step"><strong>Step 5:</strong> Learn patient care, hospital protocols, and clinical skills.</div>
+      <div class="step"><strong>Step 6:</strong> Attend workshops on advanced healthcare techniques.</div>
+      <div class="step"><strong>Step 7:</strong> Gain certification for specialized nursing areas.</div>
+      <div class="step"><strong>Step 8:</strong> Apply for government or private hospital jobs.</div>
+      <div class="step"><strong>Step 9:</strong> Work on time management and teamwork in healthcare environment.</div>
+      <div class="step"><strong>Step 10:</strong> Consider higher studies for career growth (B.Sc → M.Sc → PhD).</div>
+      <div class="step"><strong>Step 11:</strong> Attend seminars and conferences to update knowledge.</div>
+      <div class="step"><strong>Step 12:</strong> Explore freelance healthcare services or consultancy.</div>
+      <div class="step"><strong>Step 13:</strong> Participate in community health programs for experience.</div>
+      <div class="step"><strong>Step 14:</strong> Maintain a professional network for career guidance.</div>
+      <div class="step"><strong>Step 15:</strong> Keep learning emerging healthcare technologies and nursing practices.</div>
+    `,
+
+   computerScience : `
+<h2>Computer Science (AI/Data Science/Programming) Roadmap</h2>
+<div class="step"><strong>Step 1:</strong> Start with basics of programming (Python, Java, or C++).</div>
+<div class="step"><strong>Step 2:</strong> Learn data structures and algorithms thoroughly.</div>
+<div class="step"><strong>Step 3:</strong> Understand computer architecture and operating systems.</div>
+<div class="step"><strong>Step 4:</strong> Practice coding problems regularly on platforms like LeetCode or Codeforces.</div>
+<div class="step"><strong>Step 5:</strong> Learn basics of databases and SQL.</div>
+<div class="step"><strong>Step 6:</strong> Explore web development (HTML, CSS, JS) and build small projects.</div>
+<div class="step"><strong>Step 7:</strong> Study networking and security fundamentals.</div>
+<div class="step"><strong>Step 8:</strong> Begin AI/ML and Data Science fundamentals.</div>
+<div class="step"><strong>Step 9:</strong> Learn data analysis, visualization, and statistics.</div>
+<div class="step"><strong>Step 10:</strong> Work on mini-projects to apply concepts practically.</div>
+<div class="step"><strong>Step 11:</strong> Dive deeper into specialized fields like AI, ML, or Cloud Computing.</div>
+<div class="step"><strong>Step 12:</strong> Participate in hackathons and coding competitions.</div>
+<div class="step"><strong>Step 13:</strong> Contribute to open-source projects to build experience.</div>
+<div class="step"><strong>Step 14:</strong> Build a strong GitHub portfolio showcasing projects.</div>
+<div class="step"><strong>Step 15:</strong> Take online courses and certifications for advanced topics.</div>
+<div class="step"><strong>Step 16:</strong> Learn software development best practices and version control.</div>
+<div class="step"><strong>Step 17:</strong> Apply for internships in tech companies.</div>
+<div class="step"><strong>Step 18:</strong> Prepare for coding interviews and technical assessments.</div>
+<div class="step"><strong>Step 19:</strong> Network with professionals and join tech communities.</div>
+<div class="step"><strong>Step 20:</strong> Keep learning emerging technologies and trends in computer science.</div>
+`
+
+    };
+
+    const roadmapList = document.getElementById("roadmapList");
+    const downloadBtn = document.getElementById("downloadBtn");
+    let currentRoadmap = "";
+
+    function displayRoadmaps(filter = "") {
+      roadmapList.innerHTML = "";
+      for (let key in roadmaps) {
+        if (roadmaps[key].toLowerCase().includes(filter.toLowerCase())) {
+          const btn = document.createElement("div");
+          btn.className = "roadmap-btn";
+          btn.innerText = roadmaps[key];
+          btn.onclick = () => showRoadmap(key);
+          roadmapList.appendChild(btn);
+        }
+      }
+    }
+
+    function showRoadmap(type) {
+      const content = document.getElementById("content");
+      currentRoadmap = type;
+      content.innerHTML = data[type] || "<h2>Details Not Available</h2>";
+      downloadBtn.style.display = "inline-block";
+      content.appendChild(downloadBtn);
+    }
+
+    downloadBtn.onclick = function () {
+      if (!currentRoadmap) return;
+      const doc = new jsPDF();
+      const text = data[currentRoadmap].replace(/<[^>]+>/g, "\n");
+      doc.setFontSize(12);
+      doc.text(text, 10, 10);
+      doc.save(`${roadmaps[currentRoadmap]}-Roadmap.pdf`);
+    }
+
+    displayRoadmaps();
+    document.getElementById("searchInput").addEventListener("input", (e) => { displayRoadmaps(e.target.value) });
+  </script>
+
+
+<div class="modal" id="authModal">
+      <div class="card">
+        <div class="tabs">
+          <button id="tabSignup" class="active" onclick="showForm('signup')">Signup</button>
+          <button id="tabSignin" onclick="showForm('signin')">Signin</button>
+        </div>
+        <p id="message" class="msg"></p>
+
+        <form id="signupForm" onsubmit="return signup(event)">
+          <input type="text" id="signupName" placeholder="Full Name" required>
+          <input type="email" id="signupEmail" placeholder="Email" required>
+          <input type="password" id="signupPassword" placeholder="Password" required>
+          <button class="auth-btn" type="submit">Signup</button>
+        </form>
+
+        <form id="signinForm" style="display:none;" onsubmit="return signin(event)">
+          <input type="email" id="signinEmail" placeholder="Email" required>
+          <input type="password" id="signinPassword" placeholder="Password" required>
+          <button class="auth-btn" type="submit">Signin</button>
+        </form>
+      </div>
+    </div>
+
+
+    <script>
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      let currentUser = localStorage.getItem("currentUser");
+
+      window.onload = () => {
+        if (currentUser) {
+          document.getElementById("loginBtn").style.display = "none";
+          document.getElementById("logoutBtn").style.display = "inline-block";
+          document.querySelector(".logo").innerHTML = "Welcome, <span style='color:var(--accent)'>" + currentUser + "</span>";
+        }
+      };
+
+      function openModal() { document.getElementById("authModal").style.display = "flex"; }
+      window.onclick = function (e) { if (e.target.id === "authModal") closeModal(); }
+      function closeModal() { document.getElementById("authModal").style.display = "none"; }
+
+      function showForm(form) {
+        document.getElementById("signupForm").style.display = (form === 'signup') ? "block" : "none";
+        document.getElementById("signinForm").style.display = (form === 'signin') ? "block" : "none";
+        document.getElementById("tabSignup").classList.toggle("active", form === 'signup');
+        document.getElementById("tabSignin").classList.toggle("active", form === 'signin');
+        document.getElementById("message").innerText = "";
+      }
+
+      function signup(event) {
+        event.preventDefault();
+        let name = document.getElementById("signupName").value.trim();
+        let email = document.getElementById("signupEmail").value.trim();
+        let password = document.getElementById("signupPassword").value.trim();
+
+        if (users.find(u => u.email === email)) {
+          showMessage("⚠️ Email already exists!", "error");
+        } else {
+          users.push({ name, email, password });
+          localStorage.setItem("users", JSON.stringify(users));
+          showMessage("✅ Signup successful! Please signin.", "success");
+          showForm("signin");
+        }
+      }
+
+      function signin(event) {
+        event.preventDefault();
+        let email = document.getElementById("signinEmail").value.trim();
+        let password = document.getElementById("signinPassword").value.trim();
+        let user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          localStorage.setItem("currentUser", user.name);
+          showMessage("🎉 Welcome " + user.name + "!", "success");
+          setTimeout(() => {
+            closeModal();
+            location.reload();
+          }, 1000);
+        } else {
+          showMessage("❌ Invalid email or password!", "error");
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("currentUser");
+        document.getElementById("loginBtn").style.display = "inline-block";
+        document.getElementById("logoutBtn").style.display = "none";
+        document.querySelector(".logo").innerHTML = "Career<span style='color:var(--accent)'>Path</span>";
+      }
+
+      function showMessage(msg, type) {
+        let messageBox = document.getElementById("message");
+        messageBox.innerText = msg;
+        messageBox.className = "msg " + type;
+      }
+    </script>
+
+</body>
+
+</html>

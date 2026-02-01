@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style1.css">
+  <title>CareerPath — Contact</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+        background-image: linear-gradient(rgba(143, 125, 125, 0.7), rgba(151, 155, 170, 0.7)), url(bg4.jpg);
+     background-size: cover;
+      color: #fff;
+    }
+
+   
+    /* ========== NAVIGATION BAR ========== */
+    header {
+      background: var(--bg-dark);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+    }
+
+   
+
+  
+
+
+
+  
+
+    /* ========== CONTACT SECTION ========== */
+    .contact-section {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      width: 90%;
+      margin: 40px auto;
+      text-align: center;
+      padding-top: 30px; /* navbar ke niche thoda space */
+    }
+
+    .contact-section h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #facc15;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    form button {
+      background: #10b981;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .contact-info {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: left;
+    }
+
+    .contact-info h2 {
+      margin-top: 0;
+      color: #facc15;
+    }
+
+    .contact-info p {
+      margin: 10px 0;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= NAVIGATION BAR ======= -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">Career<span style="color:var(--accent)">Path</span></div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="roadmap.html">Roadmaps</a></li>
+          <li><a href="course.html">Courses</a></li>
+          <li><a href="collage.html">Colleges</a></li>
+          <li><a href="contect.html">Contact</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <a class="btn" href="javascript:void(0)" id="loginBtn" onclick="openModal()">Login</a>
+      <a class="btn" href="javascript:void(0)" id="logoutBtn" onclick="logout()" style="display:none;background:#ef4444;">Logout</a>
+    </div>
+  </header>
+
+  <!-- ======= CONTACT SECTION ======= -->
+  <section class="contact-section" id="contact">
+    <h1>Contact Us</h1>
+    <div class="contact-container">
+      <!-- Contact Form -->
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email/MOB" required>
+        <input type="text" placeholder="Subject/course" required>
+        <input type="text" placeholder="Class/Sem" required>
+        <textarea placeholder="Your Message" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p><strong>Email:</strong> careerpathsupport@gmail.com</p>
+        <p><strong>Phone:</strong> +91 98765 43210</p>
+        <p><strong>Address:</strong> CareerPath HQ, Indore, MP, India</p>
+        <!-- <p>Follow us on social media for updates and guidance tips!</p> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= LOGIN/SIGNUP MODAL ======= -->
+  <div class="modal" id="authModal">
+    <div class="card">
+      <div class="tabs">
+        <button id="tabSignup" class="active" onclick="showForm('signup')">Signup</button>
+        <button id="tabSignin" onclick="showForm('signin')">Signin</button>
+      </div>
+      <p id="message" class="msg"></p>
+
+      <form id="signupForm" onsubmit="return signup(event)">
+        <input type="text" id="signupName" placeholder="Full Name" required>
+        <input type="email" id="signupEmail" placeholder="Email" required>
+        <input type="password" id="signupPassword" placeholder="Password" required>
+        <button class="auth-btn" type="submit">Signup</button>
+      </form>
+
+      <form id="signinForm" style="display:none;" onsubmit="return signin(event)">
+        <input type="email" id="signinEmail" placeholder="Email" required>
+        <input type="password" id="signinPassword" placeholder="Password" required>
+        <button class="auth-btn" type="submit">Signin</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let currentUser = localStorage.getItem("currentUser");
+
+    window.onload = () => {
+      if (currentUser) {
+        document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("logoutBtn").style.display = "inline-block";
+        document.querySelector(".logo").innerHTML =
+          "Welcome, <span style='color:var(--accent)'>" + currentUser + "</span>";
+      }
+    };
+
+    function openModal() { document.getElementById("authModal").style.display = "flex"; }
+    window.onclick = function (e) { if (e.target.id === "authModal") closeModal(); }
+    function closeModal() { document.getElementById("authModal").style.display = "none"; }
+
+    function showForm(form) {
+      document.getElementById("signupForm").style.display = (form === 'signup') ? "block" : "none";
+      document.getElementById("signinForm").style.display = (form === 'signin') ? "block" : "none";
+      document.getElementById("tabSignup").classList.toggle("active", form === 'signup');
+      document.getElementById("tabSignin").classList.toggle("active", form === 'signin');
+      document.getElementById("message").innerText = "";
+    }
+
+    function signup(event) {
+      event.preventDefault();
+      let name = document.getElementById("signupName").value.trim();
+      let email = document.getElementById("signupEmail").value.trim();
+      let password = document.getElementById("signupPassword").value.trim();
+
+      if (users.find(u => u.email === email)) {
+        showMessage("⚠️ Email already exists!", "error");
+      } else {
+        users.push({ name, email, password });
+        localStorage.setItem("users", JSON.stringify(users));
+        showMessage("✅ Signup successful! Please signin.", "success");
+        showForm("signin");
+      }
+    }
+
+    function signin(event) {
+      event.preventDefault();
+      let email = document.getElementById("signinEmail").value.trim();
+      let password = document.getElementById("signinPassword").value.trim();
+      let user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        localStorage.setItem("currentUser", user.name);
+        showMessage("🎉 Welcome " + user.name + "!", "success");
+        setTimeout(() => {
+          closeModal();
+          location.reload();
+        }, 1000);
+      } else {
+        showMessage("❌ Invalid email or password!", "error");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      document.getElementById("loginBtn").style.display = "inline-block";
+      document.getElementById("logoutBtn").style.display = "none";
+      document.querySelector(".logo").innerHTML =
+        "Career<span style='color:var(--accent)'>Path</span>";
+    }
+
+    function showMessage(msg, type) {
+      let messageBox = document.getElementById("message");
+      messageBox.innerText = msg;
+      messageBox.className = "msg " + type;
+    }
+  </script>
+</body>
+</html>

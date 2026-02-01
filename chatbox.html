@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPT-OSS Chatbox</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(rgba(143, 125, 125, 0.7), rgba(151, 155, 170, 0.7)), url(bg4.jpg);
+      background-size: cover;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+    }
+
+    .chat-wrapper {
+      width: 65%;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      padding: 15px;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+
+    .msg {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .msg span {
+      max-width: 70%;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .msg.bot span p {
+      background: linear-gradient(120deg, #e3e9ff, #c5d5ff);
+      padding: 12px 18px;
+      border-radius: 16px;
+      margin: 6px 0;
+      line-height: 1.6;
+      color: #111;
+      font-size: 15px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+      word-wrap: break-word;
+    }
+
+    .msg.user span p {
+      background: linear-gradient(120deg, #2575fc, #6a11cb);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 16px;
+      margin: 6px 0;
+      line-height: 1.6;
+      font-size: 15px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      word-wrap: break-word;
+    }
+
+    .msg.user {
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: white;
+    }
+
+    .bot .avatar {
+      background: #6a11cb;
+    }
+
+    .user .avatar {
+      background: #2575fc;
+    }
+
+    .msg.typing span {
+      background: #e3e9ff;
+      display: flex;
+      gap: 4px;
+      border-radius: 16px;
+      padding: 12px 18px;
+    }
+
+    .msg.typing span b {
+      width: 8px;
+      height: 8px;
+      background: #666;
+      border-radius: 50%;
+      display: inline-block;
+      animation: bounce 1.3s infinite;
+    }
+
+    .msg.typing span b:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .msg.typing span b:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .input-row {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #ddd;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    .input-row input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 25px;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .input-row button {
+      margin-left: 10px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .input-row button:hover {
+      opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: scale(0.6);
+      }
+      40% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html"><button class="btn">❌</button></a>
+  <div class="chat-wrapper">
+    <div class="chat-header">🤖 AI Chat (GPT-OSS-120B)</div>
+    <div id="messages" class="messages"></div>
+    <div class="input-row">
+      <input id="userInput" type="text" placeholder="Type your message..." />
+      <button id="sendBtn">➤</button>
+    </div>
+  </div>
+
+  <script>
+    const API_KEY = "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";
+    const MODEL = "gpt-oss-120b";
+    const API_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+    const messagesEl = document.getElementById("messages");
+    const inputEl = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function addMessage(text, who = "bot") {
+      const div = document.createElement("div");
+      div.className = "msg " + who;
+
+      const formattedText = text
+        .split("\n")
+        .map(line => {
+          const urlPattern = /(https?:\/\/[^\s]+)/g;
+          const htmlLine = line.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+          return `<p>${htmlLine}</p>`;
+        })
+        .join("");
+
+      div.innerHTML = `<div class="avatar">${who === "bot" ? "🤖" : "👤"}</div><span>${formattedText}</span>`;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
+    }
+
+    function addTyping() {
+      const div = document.createElement("div");
+      div.className = "msg bot typing";
+      div.innerHTML = `<div class="avatar">🤖</div><span><b></b><b></b><b></b></span>`;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
+      return div;
+    }
+
+    async function sendMessage() {
+      const userText = inputEl.value.trim();
+      if (!userText) return;
+      addMessage(userText, "user");
+      inputEl.value = "";
+
+      const typingDiv = addTyping();
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: MODEL,
+            messages: [{ role: "user", content: userText }]
+          })
+        });
+
+        const data = await response.json();
+        typingDiv.remove();
+
+        const reply = data.choices?.[0]?.message?.content || "⚠️ No reply";
+        addMessage(reply, "bot");
+      } catch (err) {
+        typingDiv.remove();
+        addMessage("❌ Error: " + err.message, "bot");
+      }
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    inputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    window.onload = () => {
+      setTimeout(() => {
+        addMessage("👋 Hi! How can i help you ?", "bot");
+      }, 600);
+    };
+  </script>
+</body>
+</html>

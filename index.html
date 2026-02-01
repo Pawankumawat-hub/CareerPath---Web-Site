@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style1.css">
+  <title>CareerPath — Guidance after 10th</title>
+ 
+</head>
+
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">Career<span style="color:var(--accent)">Path</span></div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="roadmap.html">Roadmaps</a></li>
+          <li><a href="course.html">Courses</a></li>
+          <li><a href="collage.html">colleges</a></li>
+          <li><a href="contect.html">Contact</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <!-- <a class="btn" href="#contact">Get Help</a> -->
+      <a class="btn" href="javascript:void(0)" id="loginBtn" onclick="openModal()">Login</a>
+      <a class="btn" href="javascript:void(0)" id="logoutBtn" onclick="logout()"
+        style="display:none;background:#ef4444;">Logout</a>
+    </div>
+  </header>
+  
+  <body>
+    
+    <section class="hero" id="home">
+  <div class="hero-content">
+    <h1><div>
+      <span id="changing-text"></span>
+    </div>
+     Get a step-by-step roadmap.
+    </h1>
+    <p>
+      Choose a stream, follow the timeline, and take practical steps — we compiled 50+ ready roadmaps to help you decide.
+    </p>
+    <a class="btn" href="aiPage.html">Generate Roadmap With AI -></a>
+  </div>
+</section>
+
+<script>
+  const textElement = document.getElementById("changing-text");
+  const texts = [
+    "Confused About Career?",
+    "Need Career Guidance?",
+    "Not Sure What to Choose?",
+    "Want a Clear Path?"
+  ];
+
+  let textIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100; 
+  let deletingSpeed = 60; 
+  let delayBetween = 1500; 
+
+  function typeEffect() {
+    const currentText = texts[textIndex];
+    
+    if (isDeleting) {
+      textElement.textContent = currentText.substring(0, charIndex--);
+    } else {
+      textElement.textContent = currentText.substring(0, charIndex++);
+    }
+
+    if (!isDeleting && charIndex === currentText.length) {
+      setTimeout(() => isDeleting = true, delayBetween);
+    } else if (isDeleting && charIndex < 0) {
+      isDeleting = false;
+      textIndex = (textIndex + 1) % texts.length;
+    }
+
+    setTimeout(typeEffect, isDeleting ? deletingSpeed : typingSpeed);
+  }
+
+  typeEffect();
+</script>
+
+    <!-- Floating Chat Button -->
+    <a href="chatbox.html"><button id="chatBtn">💬</button></a>
+
+     <!-- <a href="#chatBox"><button id="chatBtn">💬</button></a> -->
+
+    <!-- Chat Box -->
+    <!-- <div id="chatBox">
+      <div id="chatHeader">Chat Support</div>
+      <div id="chatMessages">
+        <p><b>Bot:</b> Hi! How can I help you today?</p>
+      </div>
+      <div id="chatInput">
+        <input type="text" id="userMsg" placeholder="Type your message...">
+        <button onclick="sendMsg()">Send</button>
+      </div>
+    </div> -->
+
+    <script>
+      const chatBtn = document.getElementById("chatBtn");
+      const chatBox = document.getElementById("chatBox");
+      const chatMessages = document.getElementById("chatMessages");
+
+      chatBtn.addEventListener("click", () => {
+        chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+      });
+
+      function sendMsg() {
+        let input = document.getElementById("userMsg");
+        if (input.value.trim() !== "") {
+          let msg = document.createElement("p");
+          msg.innerHTML = "<b>You:</b> " + input.value;
+          chatMessages.appendChild(msg);
+          input.value = "";
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+      }
+    </script>
+
+    <main>
+      <!-- ROADMAPS (15 prebuilt) -->
+      <section id="roadmaps">
+        <h2> Popular Roadmaps (2025)</h2>
+        <div class="card">
+          <div class="roadmaps-grid">
+            <!-- 1. Engineering (JEE) -->
+            <details id="r1">
+              <summary>1. Engineering (JEE / B.Tech) <span class="badge">Science - PCM</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: B.Tech from a good engineering college (JEE advanced / state exams)</div>
+                <ol>
+                  <li><strong>11th (Year 1):</strong> Strengthen core concepts in Physics, Chemistry, Maths. Start NCERT
+                    +
+                    concept practice.</li>
+                  <li><strong>12th (Year 2):</strong> Focus boards + chosen entrance (JEE). Regular mock tests & time
+                    management.</li>
+                  <li><strong>During/After 12th:</strong> Appear for JEE Main → JEE Advanced / State CET. Apply for
+                    counseling.</li>
+                  <li><strong>College:</strong> B.Tech — internships, coding labs, projects (4 years).</li>
+                  <li><strong>Alternatives:</strong> Diploma (Lateral entry), B.Sc (if not qualified), private colleges.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 2. Medical (NEET) -->
+            <details id="r2">
+              <summary>2. Medical (NEET → MBBS / BDS / Allied) <span class="badge">Science - PCB</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: MBBS / BDS / Nursing / Allied Health courses</div>
+                <ol>
+                  <li><strong>11th:</strong> Focus on Biology fundamentals, practicals, and NCERT thoroughly.</li>
+                  <li><strong>12th:</strong> Boards + NEET preparation, regular practice tests, diagrams & concepts.
+                  </li>
+                  <li><strong>Entrance:</strong> Appear for NEET. Consider state counseling and private college options.
+                  </li>
+                  <li><strong>College:</strong> MBBS / BDS / B.Sc Nursing / BPT (4–5 yrs).</li>
+                  <li><strong>Alternatives:</strong> BHMS, BAMS, Pharmacy if MBBS not achieved.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 3. Nursing -->
+            <details id="r3">
+              <summary>3. Nursing (ANM / GNM / B.Sc Nursing) <span class="badge">Health & Allied</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Quick entry into healthcare with stable jobs</div>
+                <ol>
+                  <li><strong>After 10th:</strong> ANM / Auxiliary courses (1–2 years) — direct entry in some states.
+                  </li>
+                  <li><strong>After 12th (PCB):</strong> GNM (3 years) or B.Sc Nursing (4 years) — apply to institutes.
+                  </li>
+                  <li><strong>Training & Internship:</strong> Practical hospital training / internships for
+                    employability.
+                  </li>
+                  <li><strong>Job:</strong> Hospitals, clinics, community health centers; potential government jobs.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 4. Pharmacy -->
+            <details id="r4">
+              <summary>4. Pharmacy (D.Pharm → B.Pharm) <span class="badge">Science</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Diploma or degree in Pharmacy — work in pharma, retail or labs</div>
+                <ol>
+                  <li><strong>After 10th / 11th–12th:</strong> Complete PCB/PCM as required.</li>
+                  <li><strong>Diploma:</strong> D.Pharm (2 years) — quick entry to job market.</li>
+                  <li><strong>Degree:</strong> B.Pharm (4 years) — more options in R&D and higher roles.</li>
+                  <li><strong>Career:</strong> Pharmacist, quality control, drug inspector, production.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 5. Architecture -->
+            <details id="r5">
+              <summary>5. Architecture (B.Arch — NATA / JEE Paper 2) <span class="badge">Creative + Science</span>
+              </summary>
+              <div class="steps">
+                <div class="muted">Goal: B.Arch — design & planning career</div>
+                <ol>
+                  <li><strong>11th:</strong> Focus on Maths and develop drawing / visualization skills.</li>
+                  <li><strong>12th:</strong> Prepare for NATA / JEE Paper 2 (drawing + aptitude).</li>
+                  <li><strong>Entrance:</strong> Appear for NATA / JEE Paper 2, apply for B.Arch seats.</li>
+                  <li><strong>College:</strong> B.Arch (5 years) — internships with architects, portfolio building.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 6. Diploma / Polytechnic -->
+            <details id="r6">
+              <summary>6. Diploma (Polytechnic) — Fast technical route <span class="badge">Skill/Tech</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Practical engineering diploma, early job or lateral entry to degree</div>
+                <ol>
+                  <li><strong>After 10th / After 12th:</strong> Enroll in 2–3 year diploma (Mechanical, Civil, ECE, CS).
+                  </li>
+                  <li><strong>Placement:</strong> Many colleges provide campus placements for diploma holders.</li>
+                  <li><strong>Higher Study:</strong> Lateral entry to 2nd year of B.Tech after diploma (via entrance).
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 7. ITI (Trades) -->
+            <details id="r7">
+              <summary>7. ITI Trades — Electrician, Fitter, Plumber <span class="badge">Vocational</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Job-ready trade skills, quick placement</div>
+                <ol>
+                  <li><strong>After 10th:</strong> Join ITI — courses 6 months to 2 years.</li>
+                  <li><strong>Practical Training:</strong> Hands-on shop training; apprenticeships with local workshops.
+                  </li>
+                  <li><strong>Job:</strong> Skilled technician, contractor, or start small business.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 8. Commerce → B.Com / CA path -->
+            <details id="r8">
+              <summary>8. Commerce — B.Com / CA / Banking <span class="badge">Commerce</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Degree in commerce or professional CA path</div>
+                <ol>
+                  <li><strong>11th–12th (Commerce):</strong> Focus on Accountancy, Economics, Business Studies.</li>
+                  <li><strong>After 12th:</strong> Enroll B.Com / BBA or start CA foundation route.</li>
+                  <li><strong>Professional:</strong> CA/CS/CMA — long-term but high-paying; internships needed.</li>
+                  <li><strong>Jobs:</strong> Banking, finance, accounting, government posts.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 9. Commerce → Banking / Jobs -->
+            <details id="r9">
+              <summary>9. Commerce → Banking / Government Jobs <span class="badge">Commerce</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Secure job sooner — clerical, PO, accounting roles</div>
+                <ol>
+                  <li><strong>After 12th:</strong> Apply for clerical jobs / apprenticeships or pursue B.Com.</li>
+                  <li><strong>Short-term:</strong> Add Tally / Banking exam coaching (Institute-based).</li>
+                  <li><strong>Competitive Exams:</strong> Prepare for IBPS Clerk/PO or state PSC exams after degree if
+                    needed.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 10. Arts → Design / Creative Careers -->
+            <details id="r10">
+              <summary>10. Arts → Design / Fashion / Fine Arts <span class="badge">Arts</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Creative careers — design, UI/UX, fashion, fine arts</div>
+                <ol>
+                  <li><strong>11th–12th (Arts/Humanities):</strong> Focus on creative subjects, portfolio work.</li>
+                  <li><strong>After 12th:</strong> Apply to design institutes (NID, private colleges) or short UX/UI
+                    bootcamps.</li>
+                  <li><strong>Build Portfolio:</strong> Create sample projects, freelancing gigs, internships.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 11. Arts → Law (CLAT) -->
+            <details id="r11">
+              <summary>11. Law (Integrated LLB / CLAT) <span class="badge">Professional</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Integrated law degree (BA LLB) via CLAT / state exams</div>
+                <ol>
+                  <li><strong>11th–12th:</strong> Focus on reading, comprehension, and logical reasoning.</li>
+                  <li><strong>After 12th:</strong> Prepare for CLAT / AILET / state law entrances.</li>
+                  <li><strong>College:</strong> Integrated BA LLB (5 years) — internships at law firms.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 12. Hotel Management -->
+            <details id="r12">
+              <summary>12. Hotel Management / Hospitality <span class="badge">Vocational</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Career in hospitality, hotel operations, F&B, tourism</div>
+                <ol>
+                  <li><strong>After 12th:</strong> Enroll in hotel management diploma / degree (BHM).</li>
+                  <li><strong>Internships:</strong> Mandatory internships in hotels/resorts — critical for placements.
+                  </li>
+                  <li><strong>Jobs:</strong> Hotels, cruise lines, event management, airline hospitality.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 13. Agriculture / Horticulture -->
+            <details id="r13">
+              <summary>13. Agriculture / Horticulture / Dairy Tech <span class="badge">Rural & Practical</span>
+              </summary>
+              <div class="steps">
+                <div class="muted">Goal: Practical agricultural careers, entrepreneurship in farms/agri-business</div>
+                <ol>
+                  <li><strong>After 10th/12th:</strong> Join vocational courses in agriculture, polytechnic agri
+                    programs.
+                  </li>
+                  <li><strong>Skill-building:</strong> Training in modern farming, techniques, agribusiness management.
+                  </li>
+                  <li><strong>Career:</strong> Farm manager, extension worker, agripreneur, government agriculture
+                    roles.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 14. Skilled Trades & Automotive -->
+            <details id="r14">
+              <summary>14. Automotive / Technician / Trades <span class="badge">Skilled Trades</span></summary>
+              <div class="steps">
+                <div class="muted">Goal: Mechanic, automotive technician, service center roles</div>
+                <ol>
+                  <li><strong>After 10th:</strong> ITI in Mechanical / Automobile trade (1–2 years).</li>
+                  <li><strong>Apprenticeship:</strong> Work at garages, service centers; get certified.</li>
+                  <li><strong>Business:</strong> Start small workshop or work in dealerships; upskill with modern
+                    diagnostics.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 15. Digital Skills — Web Dev / Digital Marketing -->
+            <details id="r15">
+              <summary>15. Digital Skills — Web Development / Digital Marketing <span class="badge">Skill-based</span>
+              </summary>
+              <div class="steps">
+                <div class="muted">Goal: Fast entry to freelancing / jobs using online skills</div>
+                <ol>
+                  <li><strong>After 10th / 11th:</strong> Start short bootcamps: HTML/CSS/JS, UI basics, or Digital
+                    Marketing (6–12 weeks).</li>
+                  <li><strong>Build Portfolio:</strong> Create sample websites, social media campaigns, freelancing
+                    gigs.
+                  </li>
+                  <li><strong>Jobs:</strong> Jr. web developer, content marketer, social media manager, freelance
+                    projects.</li>
+                  <li><strong>Scale:</strong> Keep learning — frameworks, SEO, analytics; aim for higher-paying roles.
+                  </li>
+                </ol>
+              </div>
+            </details>
+            <!-- Repeat other 14 roadmaps similarly with same structure -->
+          </div>
+          <div style="margin-top:14px" class="muted">
+            Tip: Click any roadmap to expand. For a personalized roadmap, gather student's strengths, budget, and
+            location
+            — then match to one of the above or combine multiple paths.
+          </div>
+        </div>
+      </section>
+
+      <!-- COURSES SECTION -->
+      <section id="courses">
+        <h2>Recommended Courses</h2>
+        <div class="card" style="margin-top:12px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+
+            <!-- Engineering & Technical -->
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Diploma in Engineering</strong>
+              <div class="muted">2–3 yrs • Lateral to B.Tech</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>ITI Trades</strong>
+              <div class="muted">6–24 mo • Job-ready • Skilled work</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Polytechnic Diploma</strong>
+              <div class="muted">Mechanical, Civil, CS, Electrical</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>B.Tech / BE</strong>
+              <div class="muted">4 yrs • Entrance based • Engg career</div>
+            </div>
+
+            <!-- Medical & Health -->
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>MBBS / BDS</strong>
+              <div class="muted">5 yrs • NEET required</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>B.Sc Nursing</strong>
+              <div class="muted">4 yrs • Hospitals & clinics</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Pharmacy (D.Pharm / B.Pharm)</strong>
+              <div class="muted">2–4 yrs • Pharma jobs</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Physiotherapy (BPT)</strong>
+              <div class="muted">4 yrs • Rehab & hospitals</div>
+            </div>
+
+            <!-- Commerce & Management -->
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>B.Com</strong>
+              <div class="muted">3 yrs • Commerce base career</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>BBA</strong>
+              <div class="muted">3 yrs • Business & management</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>CA / CS / CMA</strong>
+              <div class="muted">Professional courses • Finance</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Hotel Management</strong>
+              <div class="muted">3–4 yrs • Hospitality jobs</div>
+            </div>
+
+            <!-- Arts & Creative -->
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>BA (Humanities)</strong>
+              <div class="muted">3 yrs • UPSC / Govt prep</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Fashion Designing</strong>
+              <div class="muted">3–4 yrs • Creative industry</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Fine Arts (BFA)</strong>
+              <div class="muted">3–4 yrs • Art & design career</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Law (BA LLB)</strong>
+              <div class="muted">5 yrs • CLAT/entrance required</div>
+            </div>
+
+            <!-- Agriculture & Rural -->
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>B.Sc Agriculture</strong>
+              <div class="muted">4 yrs • Govt & farm jobs</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Dairy Technology</strong>
+              <div class="muted">3–4 yrs • Food sector</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Veterinary Science</strong>
+              <div class="muted">5 yrs • Animal care career</div>
+            </div>
+
+            <!-- Digital & Skill-based -->
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Web Development</strong>
+              <div class="muted">6 mo–1 yr • Bootcamps</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Digital Marketing</strong>
+              <div class="muted">3–6 mo • SEO, social media</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Graphic Designing</strong>
+              <div class="muted">1 yr • UI/UX, freelancing</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Animation & VFX</strong>
+              <div class="muted">2–3 yrs • Film & gaming</div>
+            </div>
+            <div style="padding:12px;background:#fcfeff;border-radius:10px">
+              <strong>Data Science / AI</strong>
+              <div class="muted">Online • 6–12 mo</div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- GUIDANCE SECTION -->
+      <section id="guidance"
+        style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);padding:40px 20px;margin-top:30px;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,0.08)">
+        <div class="container">
+          <h2 style="text-align:center;font-size:28px;color:#1E3A8A;margin-bottom:20px">
+            🌟 Career Guidance After 10th
+          </h2>
+          <p style="text-align:center;max-width:800px;margin:0 auto 24px;color:#334155;font-size:16px">
+            Choosing the right stream after 10th is a turning point of life. Take this decision with proper awareness,
+            guidance, and self-analysis.
+          </p>
+
+          <!-- KEY FACTORS -->
+          <div class="card"
+            style="padding:20px;margin-bottom:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+            <h3 style="margin-bottom:12px;color:#0F172A">🔑 Key Factors to Consider</h3>
+            <ul style="line-height:1.8;margin-left:20px;color:#374151">
+              <li><b>Interest & Passion:</b> Choose what excites you, not what others are doing.</li>
+              <li><b>Skills & Strengths:</b> Identify subjects you are naturally good at.</li>
+              <li><b>Future Scope:</b> Research careers, job opportunities & salary trends.</li>
+              <li><b>Financial Condition:</b> Consider costs of studies & available scholarships.</li>
+              <li><b>Entrance Exams:</b> Prepare early for JEE, NEET, CA, CLAT, UPSC, etc.</li>
+              <li><b>Alternate Options:</b> Keep Diploma/ITI/Vocational courses as backup.</li>
+              <li><b>Guidance:</b> Consult teachers, career counselors & trusted seniors.</li>
+            </ul>
+          </div>
+
+          <!-- POPULAR OPTIONS -->
+          <div class="card"
+            style="padding:20px;margin-bottom:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+            <h3 style="margin-bottom:12px;color:#0F172A">📌 Popular Options After 10th</h3>
+            <ul style="line-height:1.8;margin-left:20px;color:#374151">
+              <li>Science Stream → Engineering, Medical, Research</li>
+              <li>Commerce Stream → Business, Management, CA/CS, Banking</li>
+              <li>Arts Stream → Civil Services, Law, Design, Media</li>
+              <li>Diploma Courses → Polytechnic, Pharmacy, Hotel Management</li>
+              <li>ITI Courses → Skilled trades like Electrician, Fitter, Welder</li>
+              <li>Vocational Training → Digital Marketing, Web Development, Graphics</li>
+            </ul>
+          </div>
+
+          <!-- TIPS -->
+          <div class="card"
+            style="padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.08)">
+            <h3 style="margin-bottom:12px;color:#0F172A">💡 Tips for Students</h3>
+            <ul style="line-height:1.8;margin-left:20px;color:#374151">
+              <li>Don’t follow friends blindly — your path is unique.</li>
+              <li>No stream is “good” or “bad”; every stream has opportunities.</li>
+              <li>Work on communication, computer knowledge & problem-solving.</li>
+              <li>Stay updated with new-age careers (AI, Data Science, Robotics).</li>
+              <li>Take aptitude/career tests to know your strength.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- about us -->
+
+      <section class="aboutContainer" id="about">
+        <h1>About CareerPath</h1>
+        <div class="about-card">
+          <p><strong>CareerPath</strong> was created to guide students right after their 10th class,
+            when choosing a career feels confusing. Our goal is to simplify the decision-making process
+            with clear <b>step-by-step roadmaps</b>, practical guidance, and resources.</p>
+
+          <p>We have compiled <b>15 prebuilt roadmaps</b> for streams like Science, Commerce, Arts,
+            Vocational skills, and more. Each roadmap includes milestones, alternatives, and actionable steps,
+            so that you never feel lost in your journey.</p>
+
+          <div class="mission">
+            <h3>🎯 Our Mission</h3>
+            <p>To empower students by providing structured career guidance,
+              helping them discover opportunities, and making informed choices
+              for a brighter future.</p>
+          </div>
+
+          <p>Whether you want to prepare for JEE, NEET, pursue Arts, Commerce, or skill-based careers —
+            CareerPath gives you a <b>clear direction</b> from day one.</p>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <!-- <section id="contact">
+        <h2>Contact & Ask a Question</h2>
+        <div class="card" style="margin-top:12px">
+          <div class="contact-card">
+            <div>
+              <form class="contact-form" action="mailto:info@example.com" method="post" enctype="text/plain">
+                <label for="name">Name</label>
+                <input id="name" name="Name" type="text" required placeholder="Student / Parent name">
+
+                <label for="email">Email</label>
+                <input id="email" name="Email" type="email" required placeholder="you@example.com">
+
+                <label for="cls">Class</label>
+                <select id="cls" name="Class">
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                </select>
+
+                <label for="message">Message / Question</label>
+                <textarea id="message" name="Message" rows="4" placeholder="Type your question here"></textarea>
+
+                <div style="margin-top:10px">
+                  <button type="submit" class="mailto">Send Email</button>
+                  <span style="margin-left:12px;color:#6b7280;font-size:14px">Or email: info@example.com</span>
+                </div>
+              </form>
+            </div>
+
+            <aside style="padding:12px;border-radius:10px;background:#fff;border:1px solid #eef2ff">
+              <div style="font-weight:800">Quick Help</div>
+              <div class="muted" style="margin-top:8px">Call/WhatsApp: +91-XXXXXXXXXX</div>
+              <div class="muted" style="margin-top:8px">Office Hours: Mon–Sat, 10:00 – 18:00</div>
+              <div style="margin-top:12px"><a href="#roadmaps"
+                  style="display:inline-block;padding:6px 8px;background:rgba(30,58,138,0.08);color:var(--primary);border-radius:8px;text-decoration:none">Browse
+                  Roadmaps</a></div>
+            </aside>
+          </div>
+        </div>
+      </section> -->
+    </main>
+
+    <!-- singup and singin  -->
+    <div class="modal" id="authModal">
+      <div class="card">
+        <div class="tabs">
+          <button id="tabSignup" class="active" onclick="showForm('signup')">Signup</button>
+          <button id="tabSignin" onclick="showForm('signin')">Signin</button>
+        </div>
+        <p id="message" class="msg"></p>
+
+        <form id="signupForm" onsubmit="return signup(event)">
+          <input type="text" id="signupName" placeholder="Full Name" required>
+          <input type="email" id="signupEmail" placeholder="Email" required>
+          <input type="password" id="signupPassword" placeholder="Password" required>
+          <button class="auth-btn" type="submit">Signup</button>
+        </form>
+
+        <form id="signinForm" style="display:none;" onsubmit="return signin(event)">
+          <input type="email" id="signinEmail" placeholder="Email" required>
+          <input type="password" id="signinPassword" placeholder="Password" required>
+          <button class="auth-btn" type="submit">Signin</button>
+        </form>
+      </div>
+    </div>
+
+
+    <script>
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      let currentUser = localStorage.getItem("currentUser");
+
+      window.onload = () => {
+        if (currentUser) {
+          document.getElementById("loginBtn").style.display = "none";
+          document.getElementById("logoutBtn").style.display = "inline-block";
+          document.querySelector(".logo").innerHTML = "Welcome, <span style='color:var(--accent)'>" + currentUser + "</span>";
+        }
+      };
+
+      function openModal() { document.getElementById("authModal").style.display = "flex"; }
+      window.onclick = function (e) { if (e.target.id === "authModal") closeModal(); }
+      function closeModal() { document.getElementById("authModal").style.display = "none"; }
+
+      function showForm(form) {
+        document.getElementById("signupForm").style.display = (form === 'signup') ? "block" : "none";
+        document.getElementById("signinForm").style.display = (form === 'signin') ? "block" : "none";
+        document.getElementById("tabSignup").classList.toggle("active", form === 'signup');
+        document.getElementById("tabSignin").classList.toggle("active", form === 'signin');
+        document.getElementById("message").innerText = "";
+      }
+
+      function signup(event) {
+        event.preventDefault();
+        let name = document.getElementById("signupName").value.trim();
+        let email = document.getElementById("signupEmail").value.trim();
+        let password = document.getElementById("signupPassword").value.trim();
+
+        if (users.find(u => u.email === email)) {
+          showMessage("⚠️ Email already exists!", "error");
+        } else {
+          users.push({ name, email, password });
+          localStorage.setItem("users", JSON.stringify(users));
+          showMessage("✅ Signup successful! Please signin.", "success");
+          showForm("signin");
+        }
+      }
+
+      function signin(event) {
+        event.preventDefault();
+        let email = document.getElementById("signinEmail").value.trim();
+        let password = document.getElementById("signinPassword").value.trim();
+        let user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          localStorage.setItem("currentUser", user.name);
+          showMessage("🎉 Welcome " + user.name + "!", "success");
+          setTimeout(() => {
+            closeModal();
+            location.reload();
+          }, 1000);
+        } else {
+          showMessage("❌ Invalid email or password!", "error");
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("currentUser");
+        document.getElementById("loginBtn").style.display = "inline-block";
+        document.getElementById("logoutBtn").style.display = "none";
+        document.querySelector(".logo").innerHTML = "Career<span style='color:var(--accent)'>Path</span>";
+      }
+
+      function showMessage(msg, type) {
+        let messageBox = document.getElementById("message");
+        messageBox.innerText = msg;
+        messageBox.className = "msg " + type;
+      }
+    </script>
+
+
+    <footer>
+      &copy; 2025 CareerPath. All Rights Reserved.
+    </footer>
+  </body>
+
+</html>

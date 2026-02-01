@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style1.css">
+  <title>About — CareerPath</title>
+  <style>
+
+    body {
+
+      font-family: "Poppins", sans-serif;
+      background-color:  #fff;;
+      background-image: linear-gradient(rgba(143, 125, 125, 0.7), rgba(151, 155, 170, 0.7)), url(bg4.jpg);
+     background-size: cover;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+
+
+ 
+
+    /* 🔹 About Section */
+    .about-section {
+      max-width: 80%;
+      margin: 100px auto;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+
+    .about-section h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fbbf24;
+    }
+
+    .about-section p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+
+    .mission {
+      margin-top: 30px;
+      padding: 20px;
+      border-left: 4px solid #fbbf24;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+    }
+
+    .team {
+      margin-top: 30px;
+    }
+
+    .team h2 {
+      color: #fbbf24;
+      margin-bottom: 15px;
+    }
+
+    .team p {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">Career<span style="color:var(--accent)">Path</span></div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="roadmap.html">Roadmaps</a></li>
+          <li><a href="course.html">Courses</a></li>
+          <li><a href="collage.html">colleges</a></li>
+          <li><a href="contect.html">Contact</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <!-- <a class="btn" href="#contact">Get Help</a> -->
+      <a class="btn" href="javascript:void(0)" id="loginBtn" onclick="openModal()">Login</a>
+      <a class="btn" href="javascript:void(0)" id="logoutBtn" onclick="logout()"
+        style="display:none;background:#ef4444;">Logout</a>
+    </div>
+  </header>
+
+  <!-- 🔹 About Section -->
+  <section class="about-section">
+    <h1>About CareerPath</h1>
+    <p>
+      Welcome to <span class="highlight">CareerPath</span> — your trusted guide after 10th.  
+      We understand that choosing the right path after school can be confusing, so we provide clear roadmaps, detailed guidance, and resources to help you make confident career decisions.
+    </p>
+    <p>
+      Our platform brings together <span class="highlight">50+ career roadmaps</span>,  
+      expert advice, and practical tools that help students and parents navigate the most important decisions of their lives.
+    </p>
+
+    <div class="mission">
+      <h2>🎯 Our Mission</h2>
+      <p>
+        To empower students across India with the right information, clear pathways, and actionable steps  
+        so they can build successful careers and bright futures.
+      </p>
+    </div>
+
+    <div class="team">
+      <h2>👨‍💻 Our Team</h2>
+      <p>CareerPath is built by a group of passionate educators, developers, and mentors who want to make career guidance accessible for every student.</p>
+      <p>We are continuously adding more features like AI-based roadmaps, college finders, and interactive guidance tools to make learning and decision-making easier.</p>
+    </div>
+  </section>
+</body>
+
+<div class="modal" id="authModal">
+      <div class="card">
+        <div class="tabs">
+          <button id="tabSignup" class="active" onclick="showForm('signup')">Signup</button>
+          <button id="tabSignin" onclick="showForm('signin')">Signin</button>
+        </div>
+        <p id="message" class="msg"></p>
+
+        <form id="signupForm" onsubmit="return signup(event)">
+          <input type="text" id="signupName" placeholder="Full Name" required>
+          <input type="email" id="signupEmail" placeholder="Email" required>
+          <input type="password" id="signupPassword" placeholder="Password" required>
+          <button class="auth-btn" type="submit">Signup</button>
+        </form>
+
+        <form id="signinForm" style="display:none;" onsubmit="return signin(event)">
+          <input type="email" id="signinEmail" placeholder="Email" required>
+          <input type="password" id="signinPassword" placeholder="Password" required>
+          <button class="auth-btn" type="submit">Signin</button>
+        </form>
+      </div>
+    </div>
+
+
+    <script>
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      let currentUser = localStorage.getItem("currentUser");
+
+      window.onload = () => {
+        if (currentUser) {
+          document.getElementById("loginBtn").style.display = "none";
+          document.getElementById("logoutBtn").style.display = "inline-block";
+          document.querySelector(".logo").innerHTML = "Welcome, <span style='color:var(--accent)'>" + currentUser + "</span>";
+        }
+      };
+
+      function openModal() { document.getElementById("authModal").style.display = "flex"; }
+      window.onclick = function (e) { if (e.target.id === "authModal") closeModal(); }
+      function closeModal() { document.getElementById("authModal").style.display = "none"; }
+
+      function showForm(form) {
+        document.getElementById("signupForm").style.display = (form === 'signup') ? "block" : "none";
+        document.getElementById("signinForm").style.display = (form === 'signin') ? "block" : "none";
+        document.getElementById("tabSignup").classList.toggle("active", form === 'signup');
+        document.getElementById("tabSignin").classList.toggle("active", form === 'signin');
+        document.getElementById("message").innerText = "";
+      }
+
+      function signup(event) {
+        event.preventDefault();
+        let name = document.getElementById("signupName").value.trim();
+        let email = document.getElementById("signupEmail").value.trim();
+        let password = document.getElementById("signupPassword").value.trim();
+
+        if (users.find(u => u.email === email)) {
+          showMessage("⚠️ Email already exists!", "error");
+        } else {
+          users.push({ name, email, password });
+          localStorage.setItem("users", JSON.stringify(users));
+          showMessage("✅ Signup successful! Please signin.", "success");
+          showForm("signin");
+        }
+      }
+
+      function signin(event) {
+        event.preventDefault();
+        let email = document.getElementById("signinEmail").value.trim();
+        let password = document.getElementById("signinPassword").value.trim();
+        let user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          localStorage.setItem("currentUser", user.name);
+          showMessage("🎉 Welcome " + user.name + "!", "success");
+          setTimeout(() => {
+            closeModal();
+            location.reload();
+          }, 1000);
+        } else {
+          showMessage("❌ Invalid email or password!", "error");
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("currentUser");
+        document.getElementById("loginBtn").style.display = "inline-block";
+        document.getElementById("logoutBtn").style.display = "none";
+        document.querySelector(".logo").innerHTML = "Career<span style='color:var(--accent)'>Path</span>";
+      }
+
+      function showMessage(msg, type) {
+        let messageBox = document.getElementById("message");
+        messageBox.innerText = msg;
+        messageBox.className = "msg " + type;
+      }
+    </script>
+
+
+</html>
